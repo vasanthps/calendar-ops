@@ -3,7 +3,7 @@ import moment from 'moment';
 class Calendar {
     constructor() {
         this._holidays = {};
-        this._weeklyHolidays = [6, 7];
+        this._weeklyHolidays = [6, 0]; //Saturday and Sunday
         this._format = "MM/DD/YYYY";
     }
 
@@ -19,12 +19,12 @@ class Calendar {
     }
 
     /**
-     * Number between 1 and 7 indicating days from Monday to Sunday.
+     * Number between 0 and 6 indicating days from Sunday to Saturday.
      * @param {Array} arr
      */
     setWeeklyHolidays(arr) {
         arr.forEach((day) => {
-            if(day < 1 || day > 7) {
+            if(day < 0 || day > 6) {
                 throw new Error("Illegal Argument. Expecting: Array of numbers between 1 and 7 indicating days from Monday to Sunday.");
             }
         });
@@ -50,9 +50,9 @@ class Calendar {
      */
     addHolidays(param) {
         if(Array.isArray(param)){
-            param.forEach((p) => _addToHolidays(_convertToMomentObj(p)));
+            param.forEach((p) => this._addToHolidays(this._convertToMomentObj(p)));
         } else {
-            _addToHolidays(_convertToMomentObj(param));
+            this._addToHolidays(this._convertToMomentObj(param));
         }
 
         return this._holidays;
@@ -78,8 +78,8 @@ class Calendar {
             throw new Error("End date should be after start date");
         }
 
-        while(startDate.isSameOrBefore(end)) {
-            _addToHolidays(_convertToMomentObj(param));
+        while(startDate.isSameOrBefore(endDate)) {
+            this._addToHolidays(this._convertToMomentObj(startDate));
             startDate.add(1, 'days');
         }
 
@@ -94,9 +94,13 @@ class Calendar {
      */
     addDays(date, duration) {
         let rtnDate = moment(date);
-        let addedDays = 0;
+        let addedDays = 1;
 
-        while(addedDays >= duration) {
+        if(!rtnDate._isValid) {
+            throw new Date("Expected valid date obj");
+        }
+
+        while(addedDays < duration) {
             rtnDate.add(1, 'days');
             let newDate = rtnDate.clone().startOf('day');
             if(this._weeklyHolidays.indexOf(newDate.day()) == -1 &&
@@ -104,7 +108,6 @@ class Calendar {
                 addedDays += 1;
             }
         }
-
         return rtnDate.format(this._format);
     }
 }
