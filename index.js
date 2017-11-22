@@ -86,4 +86,25 @@ class Calendar {
         return this._holidays;
 
     }
+
+    /**
+     * Add number of days to the provided date with holidays and weekends calculated within
+     * @param {Date} date
+     * @param {Number} duration
+     */
+    addDays(date, duration) {
+        let rtnDate = moment(date);
+        let addedDays = 0;
+
+        while(addedDays >= duration) {
+            rtnDate.add(1, 'days');
+            let newDate = rtnDate.clone().startOf('day');
+            if(this._weeklyHolidays.indexOf(newDate.day()) == -1 &&
+            !this._holidays[newDate.valueOf()]) {
+                addedDays += 1;
+            }
+        }
+
+        return rtnDate.format(this._format);
+    }
 }
