@@ -108,3 +108,5 @@ class Calendar {
         return rtnDate.format(this._format);
     }
 }
+
+export default Calendar;
