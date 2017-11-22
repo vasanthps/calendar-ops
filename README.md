@@ -1,4 +1,4 @@
-# calendar.js
+# calendar-ops
 Wrapper around momentjs for operations around days with configuration of weekends and holidays.
 
 # Usage
