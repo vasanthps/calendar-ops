@@ -14,7 +14,7 @@ Import and create a new Calendar object
 ----
 
 ```javascript
-import Calendar from 'calendar';
+import Calendar from 'calendar-ops';
 
 let calendar = new Calendar();
 
