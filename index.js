@@ -7,6 +7,17 @@ class Calendar {
         this._format = "MM/DD/YYYY";
     }
 
+    _convertToMomentObj(date) {
+        if(moment(date)._isValid) {
+            return moment(date).startOf('day');
+        }
+        throw new Error("Expected Date obj!");
+    }
+
+    _addToHolidays(param) {
+        this._holidays[param.valueOf()] = param;
+    }
+
     /**
      * Number between 1 and 7 indicating days from Monday to Sunday.
      * @param {Array} arr
@@ -30,17 +41,6 @@ class Calendar {
             throw new Error("Expected string");
         }
         this._format = param;
-    }
-
-    _convertToMomentObj(date) {
-        if(moment(date)._isValid) {
-            return moment(date).startOf('day');
-        }
-        throw new Error("Expected Date obj!");
-    }
-
-    _addToHolidays(param) {
-        this._holidays[param.valueOf()] = param;
     }
 
     /**
