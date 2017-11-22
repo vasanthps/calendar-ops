@@ -3,7 +3,15 @@ Wrapper around momentjs for operations around days with configuration of weekend
 
 # Usage
 
+Install from npm
+----
+
+```bash
+npm install calendar-ops --save
+```
+
 Import and create a new Calendar object
+----
 
 ```javascript
 import Calendar from 'calendar';

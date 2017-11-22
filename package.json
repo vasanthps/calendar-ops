@@ -1,5 +1,5 @@
 {
-  "name": "calendar.js",
+  "name": "calendar-ops",
   "version": "1.0.0",
   "description": "JS library for operations with days, weeks, months and years. Configure weekends and holidays.",
   "main": "index.js",
