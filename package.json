@@ -2,9 +2,12 @@
   "name": "calendar-ops",
   "version": "1.0.0",
   "description": "JS library for operations with days, weeks, months and years. Configure weekends and holidays.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "BABEL_ENV=commonjs babel index.js --out-dir dist",
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
